@@ -14,7 +14,9 @@ Student.prototype.setSubject = function (subjectName) {
 }
 
 Student.prototype.addMarks = function (...marks) {
-    this.hasOwnProperty('marks') ? this.marks.push(...marks) : undefined;
+    if (this.hasOwnProperty('marks')) {
+      this.marks.push(...marks);
+    }
 }
 
 Student.prototype.getAverage = function () {
