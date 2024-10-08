@@ -4,9 +4,9 @@
 }
 
 function getUsersNamesInAgeRange(users, gender) {
-  return users.filter((user, index,array) => user.gender === gender)
-  .map((userAge, index, array) => userAge = user.age)
-  .reduce((result, item) => (result = result + item, 0) / array.length);
+  return users.filter(user => user.gender === gender)
+  .map(user => user.age)
+  .reduce((average, age, index, array) => average + age / array.length, 0);
 }
 
 
@@ -28,3 +28,6 @@ const people = [
   ];
 
   console.log(getUsersNamesInAgeRange(people, "мужской")); 
+  console.log(getUsersNamesInAgeRange(people, "женский"));
+  console.log(getUsersNamesInAgeRange([], "женский"));
+  console.log(getUsersNamesInAgeRange(people, "инопланетянин"));
