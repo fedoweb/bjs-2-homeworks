@@ -101,3 +101,41 @@ class Library {
         return result;
     }
 }
+
+
+//Задание 3
+
+class Student {
+    constructor (name) {
+      this.name = name;
+      this.marks = {};
+  }
+  
+    addMark (mark, subject) {
+      if (mark < 2 || mark > 5) {
+        return;
+      }
+  
+      if (!this.marks.hasOwnProperty(subject)) {
+        this.marks[subject] = [];
+      }
+      
+      this.marks[subject].push(mark);
+    }
+  
+    getAverageBySubject (subject) { 
+      if (!this.marks.hasOwnProperty(subject)) {
+        return 0;
+      }
+  
+      return this.marks[subject].reduce((acc, mark) => acc + mark, 0) / this.marks[subject].length;
+    }
+  
+    getAverage() {
+      let keyArr = Object.keys(this.marks);
+  
+      return keyArr.reduce((average, item, index) => average + this.getAverageBySubject(keyArr[index]) / keyArr.length, 0);
+  
+    }
+  }
+  
