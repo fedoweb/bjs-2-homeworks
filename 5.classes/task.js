@@ -95,7 +95,7 @@ class Library {
         let result = this.findBookBy("name", bookName);
     
         if (result) {
-            this.books.splice(this.books.findIndex((item) => (item.name === bookName)), 1);
+            this.books.splice(this.books.indexOf(result), 1);
         } 
 
         return result;
