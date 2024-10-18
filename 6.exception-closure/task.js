@@ -23,42 +23,40 @@ function validateCount(value) {
 class Triangle {
     constructor(firstSide, secondSide, thirdSide) {
 
-        try {
-            if ((firstSide + secondSide) < thirdSide) {
-                throw new Error("Треугольник c такими сторонами не существует");
-            } else {
-                this.firstSide = firstSide;
-                this.secondSide = secondSide;
-                this.thirdSide = thirdSide;
-                this.perimeter = 0;
-                this.area = 0;
-            }   
-        } catch(err) {
-            return err;
-        }        
+            if (!(firstSide + secondSide > thirdSide
+                && firstSide + thirdSide > secondSide
+                && secondSide + thirdSide > firstSide))  {
+                throw new Error("Треугольник с такими сторонами не существует");
+            } 
+            
+            this.firstSide = firstSide;
+            this.secondSide = secondSide;
+            this.thirdSide = thirdSide;          
     }
 
-    set perimeter(perimeter) {
-        this._perimeter = this.firstSide + this.secondSide + this.thirdSide;
-    }
     get perimeter() {
-        return this._perimeter;
+        return this.firstSide + this.secondSide + this.thirdSide;
     }
 
-    set area(area) {
-        let halfPerimeter = this._perimeter / 2;
-        let fullArea = Math.sqrt(halfPerimeter * (halfPerimeter - this.firstSide) * (halfPerimeter - this.secondSide) * (halfPerimeter - this.thirdSide));
-        this._area = Number.parseFloat(fullArea.toFixed(3));
-    }
     get area() {
-        return this._area;
+        const halfPerimeter = this.perimeter / 2;
+        return Math.round(Math.sqrt(halfPerimeter * (halfPerimeter - this.firstSide)
+        * (halfPerimeter - this.secondSide) * (halfPerimeter - this.thirdSide)) * 1000) / 1000;
     }
-
 }
+  
 
-function getTriangle (firstSide, secondSide, thirdSide) {
-    return new Trinagle (firstSide, secondSide, thirdSide);
+function getTriangle(firstSide, secondSide, thirdSide) {
+    try {
+        return new Triangle(firstSide, secondSide, thirdSide);
+    } catch (error) {
+        return {
+            get perimeter() {
+                return "Ошибка! Треугольник не существует";
+              },
+              get area() {
+                return "Ошибка! Треугольник не существует";
+              },
+          };
+    }   
 }
-
-let a = new Triangle(1, 1, 1);
-console.log(a);
